@@ -175,7 +175,9 @@ def _get_pages_from_config(path: str = ".streamlit/pages.toml") -> list[Page] | 
         raw_pages: list[dict[str, str | bool]] = toml.loads(
             Path(path).read_text(encoding="utf-8")
         )["pages"]
-    except (FileNotFoundError, toml.decoder.TomlDecodeError, KeyError):
+    except (FileNotFoundError, toml.decoder.TomlDecodeError, KeyError) as e:
+        print(f"Erro: {e}")
+        
         st.error(
             f"""
         Could not find a valid {path} file. Please create one
